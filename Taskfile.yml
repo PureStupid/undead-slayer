@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  venv: ".venv" # Optional if using a virtual environment
+  venv: ".venv"
   lib: "undead_slayer" # Name of the package
   run: "uv run"
 
@@ -64,6 +64,27 @@ tasks:
     desc: "Install dependencies"
     cmds:
       - uv sync --all-extras --dev
+
+  reinstall:
+    desc: "Reinstall dependencies"
+    cmds:
+      - rm -rf {{.venv}}
+      - uv sync --all-extras --dev
+
+  update:
+    desc: "Update dependencies"
+    cmds:
+      - uv sync --all-extras --dev --upgrade
+
+  pre-commit:
+    desc: "Run pre-commit hooks"
+    cmds:
+      - pre-commit run --all-files
+
+  pre-commit-update:
+    desc: "Update pre-commit hooks"
+    cmds:
+      - pre-commit autoupdate
 
   clean:
     desc: "Clean up artifacts"
