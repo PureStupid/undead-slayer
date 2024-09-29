@@ -1,0 +1,50 @@
+default_stages: [pre-commit, pre-push]
+fail_fast: false
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: check-builtin-literals
+      - id: check-docstring-first
+      - id: check-ast
+      - id: check-toml
+      - id: check-yaml
+      - id: check-json
+      - id: check-case-conflict
+      - id: pretty-format-json
+        args: [--autofix, --no-sort-keys]
+        exclude: tests(/\w*)*/functional/|tests/input|tests(/.*)+/conftest.py|doc/data/messages|tests(/\w*)*data/|Pipfile.lock
+
+  - repo: local
+    hooks:
+      - id: ruff (lint)
+        name: ruff (lint)
+        entry: task
+        language: system
+        pass_filenames: false
+        args: [lint]
+
+  - repo: local
+    hooks:
+      - id: ruff (format)
+        name: ruff (format)
+        entry: task
+        language: system
+        pass_filenames: false
+        args: [format]
+
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: task
+        language: system
+        pass_filenames: false
+        args: [typecheck]
+        exclude: tests(/\w*)*/functional/|tests/input|tests(/\w*)*data/|doc/
