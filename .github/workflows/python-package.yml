@@ -33,8 +33,7 @@ jobs:
           uv sync --all-extras --dev
 
       - name: Lint with Ruff
-        run: |
-          chartboost/ruff-action@v1
+        uses: chartboost/ruff-action@v1
         with:
           src: "./src"
           args: "format --check"
