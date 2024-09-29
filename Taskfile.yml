@@ -1,0 +1,76 @@
+version: "3"
+
+vars:
+  venv: ".venv" # Optional if using a virtual environment
+  lib: "undead_slayer" # Name of the package
+  run: "uv run"
+
+tasks:
+  lint:
+    desc: "Run linter (Ruff)"
+    cmds:
+      - "{{.run}} ruff check"
+    silent: true
+    sources:
+      - "**/*.py"
+
+  lint-fix:
+    desc: "Run linter with auto-fix (Ruff)"
+    cmds:
+      - "{{.run}} ruff check --fix"
+    silent: true
+    sources:
+      - "**/*.py"
+
+  typecheck:
+    desc: "Run type checker (pyright)"
+    cmds:
+      - "{{.run}} pyright"
+    silent: true
+    sources:
+      - "**/*.py"
+
+  typecheck-stats:
+    desc: "Run type checker with stats (pyright)"
+    cmds:
+      - "{{.run}} pyright --stats"
+    silent: true
+    sources:
+      - "**/*.py"
+
+  format:
+    desc: "Auto-format code (Ruff)"
+    cmds:
+      - "{{.run}} ruff format"
+    silent: true
+    sources:
+      - "**/*.py"
+
+  run:
+    desc: "Run the application"
+    cmds:
+      - "{{.run}} {{.lib}}"
+    vars:
+      args: ""
+    silent: true
+
+  test:
+    desc: "Run tests (pytest)"
+    cmds:
+      - uv run pytest
+    silent: true
+
+  install:
+    desc: "Install dependencies"
+    cmds:
+      - uv sync --all-extras --dev
+
+  clean:
+    desc: "Clean up artifacts"
+    cmds:
+      - rm -rf __pycache__ .pyright_cache .pytest_cache .venv
+      - find . -type d -name "__pycache__" -exec rm -rf {} +
+
+  all:
+    desc: "Run lint, typecheck, format and tests"
+    deps: [lint, typecheck, format, test]
