@@ -5,18 +5,19 @@ repos:
     rev: v4.6.0
     hooks:
       - id: check-merge-conflict
-      - id: detect-private-key
-      - id: end-of-file-fixer
-      - id: mixed-line-ending
-      - id: trailing-whitespace
-        args: [--markdown-linebreak-ext=md]
+      - id: check-case-conflict
       - id: check-builtin-literals
       - id: check-docstring-first
       - id: check-ast
       - id: check-toml
       - id: check-yaml
       - id: check-json
-      - id: check-case-conflict
+      - id: detect-private-key
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
       - id: pretty-format-json
         args: [--autofix, --no-sort-keys]
         exclude: tests(/\w*)*/functional/|tests/input|tests(/.*)+/conftest.py|doc/data/messages|tests(/\w*)*data/|Pipfile.lock
