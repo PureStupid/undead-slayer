@@ -22,30 +22,20 @@ repos:
         args: [--autofix, --no-sort-keys]
         exclude: tests(/\w*)*/functional/|tests/input|tests(/.*)+/conftest.py|doc/data/messages|tests(/\w*)*data/|Pipfile.lock
 
-  - repo: local
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.6.8
     hooks:
-      - id: ruff (lint)
+      # Run the linter.
+      - id: ruff
         name: ruff (lint)
-        entry: task
-        language: system
-        pass_filenames: false
-        args: [lint]
-
-  - repo: local
-    hooks:
-      - id: ruff (format)
+        args: [--fix]
+      # Run the formatter.
+      - id: ruff-format
         name: ruff (format)
-        entry: task
-        language: system
-        pass_filenames: false
-        args: [format]
 
-  - repo: local
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.382.post1
     hooks:
       - id: pyright
-        name: pyright
-        entry: task
-        language: system
-        pass_filenames: false
-        args: [typecheck]
-        exclude: tests(/\w*)*/functional/|tests/input|tests(/\w*)*data/|doc/
+        name: pyright (typecheck)
