@@ -2,10 +2,11 @@ from unittest.mock import patch
 
 import pytest
 
+from undead_slayer.enums import UI
 from undead_slayer.ui.cli.cli import CLI
 from undead_slayer.ui.gui.gui import GUI
 from undead_slayer.ui.tui.tui import TUI
-from undead_slayer.ui.ui_manager import UI, launch_ui
+from undead_slayer.ui.ui_manager import launch_ui
 
 
 @pytest.mark.parametrize(
