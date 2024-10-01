@@ -8,17 +8,17 @@ vars:
 tasks:
   lint:
     desc: "Run linter (Ruff)"
+    summary: "Check the code quality using Ruff, with default settings extended to import sorting"
     cmds:
       - "{{.run}} ruff check"
-    silent: true
     sources:
       - "**/*.py"
 
   lint-fix:
     desc: "Run linter with auto-fix (Ruff)"
+    summary: "Check the code quality using Ruff, with default settings extended to import sorting and auto-fix"
     cmds:
       - "{{.run}} ruff check --fix"
-    silent: true
     sources:
       - "**/*.py"
 
@@ -26,7 +26,6 @@ tasks:
     desc: "Run type checker (pyright)"
     cmds:
       - "{{.run}} pyright"
-    silent: true
     sources:
       - "**/*.py"
 
@@ -34,7 +33,6 @@ tasks:
     desc: "Run type checker with stats (pyright)"
     cmds:
       - "{{.run}} pyright --stats"
-    silent: true
     sources:
       - "**/*.py"
 
@@ -42,26 +40,53 @@ tasks:
     desc: "Auto-format code (Ruff)"
     cmds:
       - "{{.run}} ruff format"
-    silent: true
+    sources:
+      - "**/*.py"
+
+  format-check:
+    desc: "Check code formatting (Ruff)"
+    summary: "Check the code formatting using Ruff"
+    cmds:
+      - "{{.run}} ruff format --check"
     sources:
       - "**/*.py"
 
   run:
     desc: "Run the application"
     cmds:
-      - "{{.run}} {{.lib}}"
+      - "{{.run}} {{.lib}} play"
     vars:
       args: ""
-    silent: true
+
+  run-cli:
+    desc: "Run the application with CLI"
+    cmds:
+      - "{{.run}} {{.lib}} play {{.args}}"
+    vars:
+      args: "cli"
+
+  run-tui:
+    desc: "Run the application with TUI"
+    cmds:
+      - "{{.run}} {{.lib}} play {{.args}}"
+    vars:
+      args: "tui"
+
+  run-gui:
+    desc: "Run the application with GUI"
+    cmds:
+      - "{{.run}} {{.lib}} play {{.args}}"
+    vars:
+      args: "gui"
 
   test:
     desc: "Run tests (pytest)"
     cmds:
       - uv run pytest
-    silent: true
 
   install:
     desc: "Install dependencies"
+    summary: "Install all dependencies including dev and extra dependencies"
     cmds:
       - uv sync --all-extras --dev
 
@@ -76,8 +101,8 @@ tasks:
     cmds:
       - uv sync --all-extras --dev --upgrade
 
-  pre-commit:
-    desc: "Run pre-commit hooks"
+  pre-commit-all:
+    desc: "Run pre-commit hooks on all files"
     cmds:
       - pre-commit run --all-files
 
@@ -92,6 +117,12 @@ tasks:
       - rm -rf __pycache__ .pyright_cache .pytest_cache .venv
       - find . -type d -name "__pycache__" -exec rm -rf {} +
 
-  all:
-    desc: "Run lint, typecheck, format and tests"
-    deps: [lint, typecheck, format, test]
+  check-all:
+    desc: "Run all checks and tests"
+    summary: "Run lint, typecheck, format-check and test"
+    deps: [lint, typecheck, format-check, test]
+
+  check-all-fix:
+    desc: "Run all checks and tests with auto-fix"
+    summary: "Run lint-fix, typecheck, format and test"
+    deps: [lint-fix, typecheck, format, test]
