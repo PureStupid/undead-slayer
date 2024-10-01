@@ -18,7 +18,8 @@ runner = CliRunner()
     ],
 )
 class TestMain:
-    def test_play_with_default_ui(self, ui: UI):
+    @staticmethod
+    def test_play_with_default_ui(ui: UI):
         """Test the `play` command with the default UI.
 
         Parameters:
@@ -38,7 +39,8 @@ class TestMain:
             mock_get_default_ui.assert_called_once()
             mock_launch_ui.assert_called_once_with(ui)
 
-    def test_play_with_specific_ui(self, ui: UI):
+    @staticmethod
+    def test_play_with_specific_ui(ui: UI):
         """Test the `play` command with a specific UI.
 
         Parameters:
