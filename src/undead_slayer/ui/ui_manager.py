@@ -9,7 +9,7 @@ from undead_slayer.ui.tui.tui import TUI
 
 def get_default_ui() -> UI:
     """Return the default user interface (UI) for the game."""
-    return UI(config_manager.get_config().default_ui)
+    return UI(config_manager.get_config().default_ui.lower())
 
 
 def launch_ui(ui: UI) -> None:
@@ -20,11 +20,8 @@ def launch_ui(ui: UI) -> None:
         ui (UI): The user interface (UI) to launch.
     """
     if ui == UI.CLI:
-        print("CLI")
         CLI()
     elif ui == UI.TUI:
-        print("TUI")
         TUI()
     elif ui == UI.GUI:
-        print("GUI")
         GUI()
