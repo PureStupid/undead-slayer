@@ -24,12 +24,10 @@ class AppConfig(BaseModel):
 @dataclass
 class ConfigManager:
     config_file: Path
-    config: AppConfig
 
-    def __init__(self, config_file: Path):
-        self.config_file = config_file
-        self.config = (
-            self.load_config() if config_file.exists() else self.create_config()
+    def __post_init__(self):
+        self.config: AppConfig = (
+            self.load_config() if self.config_file.exists() else self.create_config()
         )
 
     def load_config(self) -> AppConfig:
