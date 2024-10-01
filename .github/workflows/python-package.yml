@@ -32,11 +32,12 @@ jobs:
         run: |
           uv sync --all-extras --dev
 
-      - name: Lint with Ruff
+      - name: Lint and Format check with Ruff
         uses: chartboost/ruff-action@v1
         with:
-          src: "./src"
-          args: "format --check"
+          args: |
+            check
+            format --check
 
       - name: Test with pytest
         run: |
