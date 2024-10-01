@@ -82,7 +82,7 @@ tasks:
   test:
     desc: "Run tests (pytest)"
     cmds:
-      - uv run pytest
+      - "{{.run}} pytest"
 
   install:
     desc: "Install dependencies"
@@ -104,12 +104,12 @@ tasks:
   pre-commit-all:
     desc: "Run pre-commit hooks on all files"
     cmds:
-      - pre-commit run --all-files
+      - "{{.run}} pre-commit run --all-files"
 
   pre-commit-update:
     desc: "Update pre-commit hooks"
     cmds:
-      - pre-commit autoupdate
+      - "{{.run}} pre-commit autoupdate"
 
   clean:
     desc: "Clean up artifacts"

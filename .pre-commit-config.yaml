@@ -12,6 +12,9 @@ repos:
       - id: check-toml
       - id: check-yaml
       - id: check-json
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
       - id: detect-private-key
       - id: debug-statements
       - id: end-of-file-fixer
@@ -20,7 +23,8 @@ repos:
         args: [--markdown-linebreak-ext=md]
       - id: pretty-format-json
         args: [--autofix, --no-sort-keys]
-        exclude: tests(/\w*)*/functional/|tests/input|tests(/.*)+/conftest.py|doc/data/messages|tests(/\w*)*data/|Pipfile.lock
+      - id: name-tests-test
+        args: [--pytest-test-first]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.

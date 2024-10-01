@@ -46,3 +46,19 @@ select = [
     # isort
     "I",
 ]
+
+[tool.pyright]
+include = [
+    "src/**/*.py"
+    ]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/build",
+    ]
+ignore = [
+    "**/.venv"
+    ]
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "strict"
