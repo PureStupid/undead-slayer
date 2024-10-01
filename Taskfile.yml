@@ -8,7 +8,7 @@ vars:
 tasks:
   lint:
     desc: "Run linter (Ruff)"
-    summary: "Check the code quality using Ruff, with default settings extended to import sorting"
+    summary: "Check the code quality using Ruff"
     cmds:
       - "{{.run}} ruff check"
     sources:
@@ -16,7 +16,7 @@ tasks:
 
   lint-fix:
     desc: "Run linter with auto-fix (Ruff)"
-    summary: "Check the code quality using Ruff, with default settings extended to import sorting and auto-fix"
+    summary: "Check the code quality using Ruff, with safe auto-fix"
     cmds:
       - "{{.run}} ruff check --fix"
     sources:
